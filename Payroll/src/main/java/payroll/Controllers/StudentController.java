@@ -75,9 +75,9 @@ public class StudentController {
             if (!mobileValid && !batchValid) {
                 throw new InvalidStudentException();
             } else if (!mobileValid) {
-                throw new InvalidStudentException(newStudent.getMobile());
+                throw new InvalidStudentException(mobile);
             } else if (!batchValid) {
-                throw new InvalidStudentException(newStudent.getBatch());
+                throw new InvalidStudentException(batch);
             }
     }
 }
