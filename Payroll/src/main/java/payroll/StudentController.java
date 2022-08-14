@@ -46,10 +46,6 @@ public class StudentController {
     Student replaceStudent(@RequestBody Student newStudent , @PathVariable Long id) {
         return repository.findById(id)
                 .map(student -> {
-                    student.setFirstName(newStudent.getFirstName());
-                    student.setLastName(newStudent.getLastName());
-                    student.setBatch(newStudent.getBatch());
-                    student.setMobile(newStudent.getMobile());
                     boolean mobileValid = newStudent.getMobile() > 999999999 && newStudent.getMobile() < 10000000000000L;
                     boolean batchValid = newStudent.getBatch().matches("[B][0-9]*");
                     if (!mobileValid && !batchValid) {
@@ -59,6 +55,10 @@ public class StudentController {
                     } else if (!batchValid) {
                         throw new InvalidStudentException(newStudent.getBatch());
                     }
+                    student.setFirstName(newStudent.getFirstName());
+                    student.setLastName(newStudent.getLastName());
+                    student.setBatch(newStudent.getBatch());
+                    student.setMobile(newStudent.getMobile());
                     return repository.save(newStudent);
                 })
                 .orElseGet(() -> {
