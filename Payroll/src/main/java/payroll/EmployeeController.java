@@ -1,7 +1,9 @@
 package payroll;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,17 +31,25 @@ class EmployeeController {
 
     // Single item
 
-    @RequestMapping(value = "/employees/{id}", method= RequestMethod.GET)
+    @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
 //    @GetMapping("/employees/{id}")
     Employee one(@PathVariable Long id) {
-
         return repository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    @PutMapping("/employees/{id}")
-    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+    @GetMapping("/employees/search")
+    ResponseEntity<List<Employee>> search (@RequestParam("nameContains") String substr) {
+        List<Employee> partialEmployees = repository.findAll().stream().filter(employee -> employee.getFirstName().contains(substr)).collect(Collectors.toList());
+        if (partialEmployees.size() == 0) {
+            throw new EmployeeNotFoundException(substr);
+        } else {
+            return ResponseEntity.ok(partialEmployees);
+        }
+    }
 
+    @PutMapping("/employees/{id}")
+    Employee replaceEmployee(@RequestBody Employee newEmployee , @PathVariable Long id) {
         return repository.findById(id)
                 .map(employee -> {
                     employee.setFirstName(newEmployee.getFirstName());
