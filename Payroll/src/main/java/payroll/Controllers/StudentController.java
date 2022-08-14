@@ -50,15 +50,7 @@ public class StudentController {
     Student replaceStudent(@RequestBody Student newStudent , @PathVariable Long id) {
         return repository.findById(id)
                 .map(student -> {
-                    boolean mobileValid = newStudent.getMobile() > 999999999 && newStudent.getMobile() < 10000000000000L;
-                    boolean batchValid = newStudent.getBatch().matches("B\\d*");
-                    if (!mobileValid && !batchValid) {
-                        throw new InvalidStudentException();
-                    } else if (!mobileValid) {
-                        throw new InvalidStudentException(newStudent.getMobile());
-                    } else if (!batchValid) {
-                        throw new InvalidStudentException(newStudent.getBatch());
-                    }
+                    validStudentData(newStudent.getMobile().toString() , newStudent.getBatch());
                     student.setFirstName(newStudent.getFirstName());
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
@@ -74,5 +66,18 @@ public class StudentController {
     @DeleteMapping("/student/{id}")
     void deleteStudent(@PathVariable Long id) {
         repository.deleteById(id);
+    }
+
+
+    private static void validStudentData(String mobile , String batch) {
+        boolean mobileValid = mobile.matches("^\\\\d{10}$");
+        boolean batchValid = batch.matches("B\\d*");
+            if (!mobileValid && !batchValid) {
+                throw new InvalidStudentException();
+            } else if (!mobileValid) {
+                throw new InvalidStudentException(newStudent.getMobile());
+            } else if (!batchValid) {
+                throw new InvalidStudentException(newStudent.getBatch());
+            }
     }
 }
