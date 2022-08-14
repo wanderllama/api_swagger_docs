@@ -26,11 +26,12 @@ public class StudentController {
 
     @PostMapping("/students")
     Student newPerson(@RequestBody Student newStudent) {
+        validStudentData(newStudent.getMobile().toString() , newStudent.getBatch());
         return repository.save(newStudent);
     }
 
-    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
-//    @GetMapping("/employees/{id}")
+//    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
+    @GetMapping("/employees/{id}")
     Student getByID(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
