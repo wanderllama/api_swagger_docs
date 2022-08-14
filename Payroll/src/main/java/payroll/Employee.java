@@ -13,10 +13,11 @@ class Employee {
     private String firstName;
     private String role;
 
+//    private String course;
+
     public Employee() {}
 
     Employee(String firstName, String role) {
-
         this.firstName = firstName;
         this.role = role;
     }

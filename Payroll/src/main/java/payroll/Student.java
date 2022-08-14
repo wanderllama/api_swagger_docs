@@ -12,15 +12,15 @@ class Student {
 
     private String firstName;
     private String lastName;
-    private String role;
+    private String batch;
     private Long mobile;
 
     public Student() {}
 
-    Student(String firstName , String lastName , String role, Long mobile) {
+    Student(String firstName , String lastName , String batch , Long mobile) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.role = role;
+        this.batch = batch;
         this.mobile = mobile;
     }
 
@@ -36,8 +36,20 @@ class Student {
         return this.lastName;
     }
 
-    public String getRole() {
-        return this.role;
+    public String getBatch() {
+        return batch;
+    }
+
+    public Long getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(Long mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 
     public void setId(Long id) {
@@ -52,9 +64,6 @@ class Student {
         this.lastName = lastName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -63,12 +72,12 @@ class Student {
         if (!(o instanceof Student))
             return false;
         Student student = (Student) o;
-        return Objects.equals(this.id , student.id) && Objects.equals(this.firstName , student.firstName) && Objects.equals(this.lastName , student.lastName) && Objects.equals(this.role , student.role) && Objects.equals(this.mobile , student.mobile);
+        return Objects.equals(this.id , student.id) && Objects.equals(this.firstName , student.firstName) && Objects.equals(this.lastName , student.lastName) && Objects.equals(this.batch , student.batch) && Objects.equals(this.mobile , student.mobile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id , this.firstName , this.lastName , this.role , this.mobile);
+        return Objects.hash(this.id , this.firstName , this.lastName , this.batch , this.mobile);
     }
 
     @Override
@@ -77,7 +86,7 @@ class Student {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", role='" + role + '\'' +
+                ", batch='" + batch + '\'' +
                 ", mobile=" + mobile +
                 '}';
     }
