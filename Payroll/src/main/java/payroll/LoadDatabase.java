@@ -31,6 +31,8 @@ class LoadDatabase {
             log.info("Preloading " + repository2.save(new Student("Shakhzoda" , "Kamilova" , "B26" , 5553456789L)));
             log.info("Preloading " + repository2.save(new Student("Gulie" , "Shokret" , "B26" , 6475846325L)));
             log.info("Preloading " + repository2.save(new Student("Jelena" , "Petrovic" , "B26" , 7737179130L)));
+            log.info("Preloading " + repository2.save(new Student("Olya" , "Grechyna" , "B26" , 57512157441L)));
+            log.info("Preloading " + repository2.save(new Student("Asia" , "Bizub" , "B26" , 7737745759L)));
         };
     }
 }
