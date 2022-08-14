@@ -26,19 +26,19 @@ public class StudentController {
 
     @PostMapping("/students")
     Student newPerson(@RequestBody Student newStudent) {
-        validStudentData(newStudent.getMobile().toString() , newStudent.getBatch());
+        studentDataValidation(newStudent.getMobile().toString(), newStudent.getBatch());
         return repository.save(newStudent);
     }
 
-//    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
-    @GetMapping("/employees/{id}")
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
+//    @GetMapping("/employees/{id}")
     Student getByID(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
     }
 
     @GetMapping("/students/search")
-    ResponseEntity<List<Student>> search (@RequestParam("nameContains") String substr) {
+    ResponseEntity<List<Student>> search(@RequestParam("nameContains") String substr) {
         List<Student> partialEmployees = repository.findAll().stream().filter(student -> student.getFullName().toLowerCase().contains(substr)).collect(Collectors.toList());
         if (partialEmployees.size() == 0) {
             throw new StudentNotFoundException(substr);
@@ -48,10 +48,10 @@ public class StudentController {
     }
 
     @PutMapping("/students/{id}")
-    Student replaceStudent(@RequestBody Student newStudent , @PathVariable Long id) {
+    Student replaceStudent(@RequestBody Student newStudent, @PathVariable Long id) {
         return repository.findById(id)
                 .map(student -> {
-                    validStudentData(newStudent.getMobile().toString() , newStudent.getBatch());
+                    studentDataValidation(newStudent.getMobile().toString(), newStudent.getBatch());
                     student.setFirstName(newStudent.getFirstName());
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
@@ -69,16 +69,15 @@ public class StudentController {
         repository.deleteById(id);
     }
 
-
-    private static void validStudentData(String mobile , String batch) {
+    private static void studentDataValidation(String mobile, String batch) {
         boolean mobileValid = mobile.matches("^\\\\d{10}$");
         boolean batchValid = batch.matches("B\\d*");
-            if (!mobileValid && !batchValid) {
-                throw new InvalidStudentException();
-            } else if (!mobileValid) {
-                throw new InvalidStudentException(mobile);
-            } else if (!batchValid) {
-                throw new InvalidStudentException(batch);
-            }
+        if (!mobileValid && !batchValid) {
+            throw new InvalidStudentException();
+        } else if (!mobileValid) {
+            throw new InvalidStudentException(mobile);
+        } else if (!batchValid) {
+            throw new InvalidStudentException(batch);
+        }
     }
 }
