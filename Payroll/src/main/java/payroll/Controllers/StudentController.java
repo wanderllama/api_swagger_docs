@@ -1,7 +1,9 @@
-package payroll;
+package payroll.Controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import payroll.POJO.Student;
+import payroll.Repository.StudentRepository;
 import payroll.exceptions.InvalidStudentException;
 import payroll.exceptions.StudentNotFoundException;
 

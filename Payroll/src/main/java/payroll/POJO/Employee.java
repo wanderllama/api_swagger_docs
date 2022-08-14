@@ -1,4 +1,4 @@
-package payroll;
+package payroll.POJO;
 
 import java.util.Objects;
 
@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+public
 class Employee {
 
     private @Id @GeneratedValue Long id;
@@ -17,7 +18,7 @@ class Employee {
 
     public Employee() {}
 
-    Employee(String firstName, String role) {
+    public Employee(String firstName, String role) {
         this.firstName = firstName;
         this.role = role;
     }

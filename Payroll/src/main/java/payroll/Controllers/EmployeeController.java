@@ -1,14 +1,16 @@
-package payroll;
+package payroll.Controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import payroll.Repository.EmployeeRepository;
+import payroll.POJO.Employee;
 import payroll.exceptions.EmployeeNotFoundException;
 
 @RestController
-class EmployeeController {
+public class EmployeeController {
 
     private final EmployeeRepository repository;
 
