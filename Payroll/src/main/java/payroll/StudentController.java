@@ -50,22 +50,20 @@ public class StudentController {
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
                     student.setMobile(newStudent.getMobile());
-                    if (newStudent.getBatch().matches("[B][0-9]*")) {
-                        newStudent.setId(id);
-                        return repository.save(newStudent);
-                    } else {
-                        throw new InvalidBatchException();
+                    boolean mobileValid = newStudent.getMobile() > 999999999 && newStudent.getMobile() < 10000000000000L;
+                    boolean batchValid = newStudent.getBatch().matches("[B][0-9]*");
+                    if (!mobileValid && !batchValid) {
+                        throw new InvalidStudentException();
+                    } else if (!mobileValid) {
+                        throw new InvalidStudentException(newStudent.getMobile());
+                    } else if (!batchValid) {
+                        throw new InvalidStudentException(newStudent.getBatch());
                     }
+                    return repository.save(newStudent);
                 })
                 .orElseGet(() -> {
-                    String batch = newStudent.getBatch();
-                    System.out.println(batch.matches("[B][0-9]*"));
-                    if (batch.matches("[B][0-9]*")) {
-                        newStudent.setId(id);
-                        return repository.save(newStudent);
-                    } else {
-                        throw new InvalidBatchException();
-                    }
+                    newStudent.setId(id);
+                    return repository.save(newStudent);
                 });
     }
 
