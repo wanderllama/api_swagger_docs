@@ -24,7 +24,7 @@ class ExceptionHandler {
 
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(InvalidStudentException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     String studentNotFoundHandler(InvalidStudentException e) {
         return e.getMessage();
     }
