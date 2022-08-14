@@ -26,6 +26,7 @@ class LoadDatabase {
             log.info("Preloading " + repository2.save(new Student("James" , "Wallace" , "B26" , 5712353459L)));
             log.info("Preloading " + repository2.save(new Student("Shakhzoda" , "Kamilova" , "B26" , 5553456789L)));
             log.info("Preloading " + repository2.save(new Student("Gulie" , "Shokret" , "B26" , 6475846325L)));
+            log.info("Preloading " + repository2.save(new Student("Jelena" , "Petrovic" , "B26" , 7737179130L)));
         };
     }
 }
