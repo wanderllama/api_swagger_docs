@@ -15,6 +15,8 @@ class Student {
     private String batch;
     private Long mobile;
 
+    private String fullName;
+
     public Student() {}
 
     Student(String firstName , String lastName , String batch , Long mobile) {
@@ -22,6 +24,7 @@ class Student {
         this.lastName = lastName;
         this.batch = batch;
         this.mobile = mobile;
+        this.fullName = firstName + " " + lastName;
     }
 
     public Long getId() {
@@ -42,6 +45,14 @@ class Student {
 
     public Long getMobile() {
         return mobile;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setMobile(Long mobile) {

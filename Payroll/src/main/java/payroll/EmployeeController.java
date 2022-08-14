@@ -40,7 +40,7 @@ class EmployeeController {
 
     @GetMapping("/employees/search")
     ResponseEntity<List<Employee>> search (@RequestParam("nameContains") String substr) {
-        List<Employee> partialEmployees = repository.findAll().stream().filter(employee -> employee.getFirstName().contains(substr)).collect(Collectors.toList());
+        List<Employee> partialEmployees = repository.findAll().stream().filter(employee -> employee.getFirstName().toLowerCase().contains(substr)).collect(Collectors.toList());
         if (partialEmployees.size() == 0) {
             throw new EmployeeNotFoundException(substr);
         } else {

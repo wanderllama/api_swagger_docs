@@ -15,13 +15,16 @@ class LoadDatabase {
     CommandLineRunner initDatabase(EmployeeRepository repository , StudentRepository repository2) {
 
         return args -> {
+            //Employees
             log.info("Preloading " + repository.save(new Employee("Siam", "Java")));
             log.info("Preloading " + repository.save(new Employee("Nadir", "Soft Skills")));
             log.info("Preloading " + repository.save(new Employee("Aysun", "Selenium")));
             log.info("Preloading " + repository.save(new Employee("Mehmet", "Database/JDBC")));
             log.info("Preloading " + repository.save(new Employee("Murodil", "API")));
             log.info("Preloading " + repository.save(new Employee("Austin", "Support")));
-            log.info("Preloading " + repository2.save(new Student("james" , "wallace" , "B26" , 5712353459L)));
+            // Students
+            log.info("Preloading " + repository2.save(new Student("James" , "Wallace" , "B26" , 5712353459L)));
+            log.info("Preloading " + repository2.save(new Student("Shakhzoda" , "Kamilova" , "B26" , 5553456789L)));
         };
     }
 }

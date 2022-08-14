@@ -1,8 +1,10 @@
 package payroll;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class StudentController {
@@ -21,5 +23,22 @@ public class StudentController {
     @PostMapping("/students")
     Student newPerson(@RequestBody Student newStudent) {
         return repository.save(newStudent);
+    }
+
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
+//    @GetMapping("/employees/{id}")
+    Student one(@PathVariable Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException(id));
+    }
+
+    @GetMapping("/students/search")
+    ResponseEntity<List<Student>> search (@RequestParam("nameContains") String substr) {
+        List<Student> partialEmployees = repository.findAll().stream().filter(student -> student.getFullName().toLowerCase().contains(substr)).collect(Collectors.toList());
+        if (partialEmployees.size() == 0) {
+            throw new StudentNotFoundException(substr);
+        } else {
+            return ResponseEntity.ok(partialEmployees);
+        }
     }
 }

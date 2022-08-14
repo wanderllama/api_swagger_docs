@@ -7,6 +7,6 @@ class EmployeeNotFoundException extends RuntimeException {
     }
 
     EmployeeNotFoundException(String substr) {
-        super("Could Not Find Any Employees Containing \"" + substr + "\"");
+        super("Could Not Find Any Employees Name Containing \"" + substr + "\"");
     }
 }
