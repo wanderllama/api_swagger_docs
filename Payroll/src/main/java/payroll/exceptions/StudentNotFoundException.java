@@ -1,12 +1,12 @@
-package payroll;
+package payroll.exceptions;
 
 public class StudentNotFoundException extends RuntimeException{
 
-    StudentNotFoundException(Long id) {
+    public StudentNotFoundException(Long id) {
         super("Could Not Find Student " + id);
     }
 
-    StudentNotFoundException(String substr) {
+    public StudentNotFoundException(String substr) {
         super("Could Not Find Any Student Name Containing \"" + substr + "\"");
     }
 }

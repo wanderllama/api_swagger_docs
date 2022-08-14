@@ -2,6 +2,8 @@ package payroll;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import payroll.exceptions.InvalidStudentException;
+import payroll.exceptions.StudentNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +49,7 @@ public class StudentController {
         return repository.findById(id)
                 .map(student -> {
                     boolean mobileValid = newStudent.getMobile() > 999999999 && newStudent.getMobile() < 10000000000000L;
-                    boolean batchValid = newStudent.getBatch().matches("[B][0-9]*");
+                    boolean batchValid = newStudent.getBatch().matches("B\\d*");
                     if (!mobileValid && !batchValid) {
                         throw new InvalidStudentException();
                     } else if (!mobileValid) {
