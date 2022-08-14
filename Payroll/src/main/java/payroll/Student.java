@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-class Person {
+class Student {
 
     private @Id @GeneratedValue Long id;
 
@@ -15,9 +15,9 @@ class Person {
     private String role;
     private Long mobile;
 
-    public Person() {}
+    public Student() {}
 
-    Person(String firstName , String lastName , String role, Long mobile) {
+    Student(String firstName , String lastName , String role, Long mobile) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
@@ -60,10 +60,10 @@ class Person {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Person))
+        if (!(o instanceof Student))
             return false;
-        Person person = (Person) o;
-        return Objects.equals(this.id , person.id) && Objects.equals(this.firstName , person.firstName) && Objects.equals(this.lastName , person.lastName) && Objects.equals(this.role , person.role) && Objects.equals(this.mobile , person.mobile);
+        Student student = (Student) o;
+        return Objects.equals(this.id , student.id) && Objects.equals(this.firstName , student.firstName) && Objects.equals(this.lastName , student.lastName) && Objects.equals(this.role , student.role) && Objects.equals(this.mobile , student.mobile);
     }
 
     @Override
