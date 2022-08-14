@@ -50,11 +50,22 @@ public class StudentController {
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
                     student.setMobile(newStudent.getMobile());
-                    return repository.save(student);
+                    if (newStudent.getBatch().matches("[B][0-9]*")) {
+                        newStudent.setId(id);
+                        return repository.save(newStudent);
+                    } else {
+                        throw new InvalidBatchException();
+                    }
                 })
                 .orElseGet(() -> {
-                    newStudent.setId(id);
-                    return repository.save(newStudent);
+                    String batch = newStudent.getBatch();
+                    System.out.println(batch.matches("[B][0-9]*"));
+                    if (batch.matches("[B][0-9]*")) {
+                        newStudent.setId(id);
+                        return repository.save(newStudent);
+                    } else {
+                        throw new InvalidBatchException();
+                    }
                 });
     }
 
