@@ -41,4 +41,25 @@ public class StudentController {
             return ResponseEntity.ok(partialEmployees);
         }
     }
+
+    @PutMapping("/students/{id}")
+    Student replaceStudent(@RequestBody Student newStudent , @PathVariable Long id) {
+        return repository.findById(id)
+                .map(student -> {
+                    student.setFirstName(newStudent.getFirstName());
+                    student.setLastName(newStudent.getLastName());
+                    student.setBatch(newStudent.getBatch());
+                    student.setMobile(newStudent.getMobile());
+                    return repository.save(student);
+                })
+                .orElseGet(() -> {
+                    newStudent.setId(id);
+                    return repository.save(newStudent);
+                });
+    }
+
+    @DeleteMapping("/student/{id}")
+    void deleteStudent(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
 }
