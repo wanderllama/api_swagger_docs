@@ -1,5 +1,7 @@
 package payroll.exceptions;
 
+import org.springframework.context.annotation.Description;
+
 public class EmployeeNotFoundException extends RuntimeException {
 
     public EmployeeNotFoundException(Long id) {

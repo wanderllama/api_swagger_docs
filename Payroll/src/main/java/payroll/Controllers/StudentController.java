@@ -1,5 +1,7 @@
 package payroll.Controllers;
 
+import io.swagger.annotations.SwaggerDefinition;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import payroll.POJO.Student;
@@ -20,6 +22,7 @@ public class StudentController {
     }
 
     @GetMapping("/students")
+    @Description("GET a list of all students")
     List<Student> all() {
         return repository.findAll();
     }
