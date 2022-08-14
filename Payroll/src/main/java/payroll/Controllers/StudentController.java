@@ -31,7 +31,7 @@ public class StudentController {
 
     @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
 //    @GetMapping("/employees/{id}")
-    Student one(@PathVariable Long id) {
+    Student getByID(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
     }

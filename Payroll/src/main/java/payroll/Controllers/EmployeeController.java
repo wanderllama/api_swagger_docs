@@ -36,7 +36,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
 //    @GetMapping("/employees/{id}")
-    Employee one(@PathVariable Long id) {
+    Employee getByID(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
