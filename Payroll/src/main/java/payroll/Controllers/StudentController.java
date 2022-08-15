@@ -29,7 +29,7 @@ public class StudentController {
 
     @PostMapping("/students")
     Student newPerson(@RequestBody Student newStudent) {
-        studentDataValidation(newStudent.getMobile().toString(), newStudent.getBatch());
+        studentDataValidation(newStudent.getMobile() , newStudent.getBatch());
         return repository.save(newStudent);
     }
 
@@ -54,7 +54,7 @@ public class StudentController {
     Student replaceStudent(@RequestBody Student newStudent, @PathVariable Long id) {
         return repository.findById(id)
                 .map(student -> {
-                    studentDataValidation(newStudent.getMobile().toString(), newStudent.getBatch());
+                    studentDataValidation(newStudent.getMobile() , newStudent.getBatch());
                     student.setFirstName(newStudent.getFirstName());
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
@@ -72,8 +72,9 @@ public class StudentController {
         repository.deleteById(id);
     }
 
-    private static void studentDataValidation(String mobile, String batch) {
-        boolean mobileValid = mobile.matches("^\\\\d{10}$");
+    private static void studentDataValidation(long mobile, String batch) {
+        String mobileString = String.valueOf(mobile);
+        boolean mobileValid = mobileString.matches("^\\d{10}$");
         boolean batchValid = batch.matches("B\\d*");
         if (!mobileValid && !batchValid) {
             throw new InvalidStudentException();
