@@ -1,11 +1,11 @@
 package payroll.Controllers;
 
-import io.swagger.annotations.SwaggerDefinition;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import payroll.POJO.Student;
 import payroll.Repository.StudentRepository;
+import payroll.exceptions.DuplicateStudentException;
 import payroll.exceptions.InvalidStudentException;
 import payroll.exceptions.StudentNotFoundException;
 
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     private final StudentRepository repository;
+
 
     public StudentController(StudentRepository repository) {
         this.repository = repository;
@@ -30,6 +31,7 @@ public class StudentController {
     @PostMapping("/students")
     Student newPerson(@RequestBody Student newStudent) {
         studentDataValidation(newStudent.getMobile() , newStudent.getBatch());
+        checkForDuplicates(newStudent);
         return repository.save(newStudent);
     }
 
@@ -55,6 +57,7 @@ public class StudentController {
         return repository.findById(id)
                 .map(student -> {
                     studentDataValidation(newStudent.getMobile() , newStudent.getBatch());
+                    checkForDuplicates(newStudent);
                     student.setFirstName(newStudent.getFirstName());
                     student.setLastName(newStudent.getLastName());
                     student.setBatch(newStudent.getBatch());
@@ -82,6 +85,20 @@ public class StudentController {
             throw new InvalidStudentException(mobile);
         } else if (!batchValid) {
             throw new InvalidStudentException(batch);
+        }
+    }
+
+    private void checkForDuplicates(Student newStudent) {
+        List<Student> allStudents = this.repository.findAll();
+        List<Student> matchingFullName = allStudents.stream().filter(student -> student.getFullName().equals(newStudent.getFullName())).collect(Collectors.toList());
+        if (matchingFullName.size() != 0) {
+            List<Student> matchingBatch = matchingFullName.stream().filter(student -> student.getBatch().equals(newStudent.getBatch())).collect(Collectors.toList());
+            if (matchingBatch.size() != 0) {
+                List<Student> matchingMobile = matchingBatch.stream().filter(student -> student.getMobile().equals(newStudent.getMobile())).collect(Collectors.toList());
+                if (matchingMobile.size() != 0) {
+                    throw new DuplicateStudentException();
+                }
+            }
         }
     }
 }

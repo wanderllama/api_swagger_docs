@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import payroll.exceptions.EmployeeNotFoundException;
 
 @ControllerAdvice
 class ExceptionHandler {
@@ -27,6 +26,13 @@ class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(InvalidStudentException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     String studentNotFoundHandler(InvalidStudentException e) {
+        return e.getMessage();
+    }
+
+    @ResponseBody
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateStudentException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    String duplicateStudentHandler(DuplicateStudentException e) {
         return e.getMessage();
     }
 
