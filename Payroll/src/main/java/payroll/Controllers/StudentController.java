@@ -88,6 +88,7 @@ public class StudentController {
         }
     }
 
+    //TODO think of a better way to handle this -> can not filter and compare student to newStudent because different ID. need to compare full name/batch/mobile only
     private void checkForDuplicates(Student newStudent) {
         List<Student> allStudents = this.repository.findAll();
         List<Student> matchingFullName = allStudents.stream().filter(student -> student.getFullName().equals(newStudent.getFullName())).collect(Collectors.toList());
