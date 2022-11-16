@@ -21,18 +21,18 @@ class LoadDatabase {
         return args -> {
             //Employees
             log.info("Preloading " + repository.save(new Employee("Siam", "Java")));
-            log.info("Preloading " + repository.save(new Employee("Nadir", "Soft Skills")));
+            log.info("Preloading " + repository.save(new Employee("Layla", "Soft Skills")));
             log.info("Preloading " + repository.save(new Employee("Aysun", "Selenium")));
             log.info("Preloading " + repository.save(new Employee("Mehmet", "Database/JDBC")));
             log.info("Preloading " + repository.save(new Employee("Murodil", "API")));
             log.info("Preloading " + repository.save(new Employee("Austin", "Support")));
             // Students
-            log.info("Preloading " + repository2.save(new Student("James" , "Wallace" , "B26" , 5712353459L)));
-            log.info("Preloading " + repository2.save(new Student("Shakhzoda" , "Kamilova" , "B26" , 5553456789L)));
-            log.info("Preloading " + repository2.save(new Student("Gulie" , "Shokret" , "B26" , 6475846325L)));
-            log.info("Preloading " + repository2.save(new Student("Jelena" , "Petrovic" , "B26" , 7737179130L)));
-            log.info("Preloading " + repository2.save(new Student("Olya" , "Grechyna" , "B26" , 57512157441L)));
-            log.info("Preloading " + repository2.save(new Student("Asia" , "Bizub" , "B26" , 7737745759L)));
+            log.info("Preloading " + repository2.save(new Student("James" , "Wallace" , "B6" , 5712353459L)));
+            log.info("Preloading " + repository2.save(new Student("Shakhzoda" , "Kamilova" , "B6" , 5553456709L)));
+            log.info("Preloading " + repository2.save(new Student("Gulie" , "Shokret" , "B6" , 6475846305L)));
+            log.info("Preloading " + repository2.save(new Student("Jelena" , "Petrovic" , "B6" , 5712568777L)));
+            log.info("Preloading " + repository2.save(new Student("Olya" , "Grechyna" , "B6" , 57512157841L)));
+            log.info("Preloading " + repository2.save(new Student("Asia" , "Bizub" , "B6" , 7737745959L)));
         };
     }
 }
